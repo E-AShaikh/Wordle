@@ -19,6 +19,10 @@ public class Main {
         int attempts = 0;
         for(String line = scanner.nextLine() ; line != null ; line = scanner.nextLine()) {
             line = line.toUpperCase();
+            if(line.length() != 5) {
+                System.out.println("5 characters only... Please try again:");
+                continue;
+            }
             if(line.equals(WORD)) {
                 System.out.println("Success!!!");
                 return;
