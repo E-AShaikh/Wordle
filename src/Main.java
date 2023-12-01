@@ -27,7 +27,8 @@ public class Main {
                 System.out.println("Word not in dictionary... Try again:");
             } else {
                 attempts++;
-                System.out.println("Try again:");
+                printWordResult(line);
+                System.out.println();
                 if(attempts > 7) {
                     System.out.println("Game over!");
                     return;
@@ -35,6 +36,22 @@ public class Main {
             }
         }
 
+    }
+
+    private static void printWordResult(String word) {
+        for(int iter = 0 ; iter < 5 ; iter++) {
+            char currentChar = word.charAt(iter);
+            if(currentChar == WORD.charAt(iter)) {
+                System.out.print("G"); // Green
+                continue;
+            }
+            if(WORD.indexOf(currentChar) > -1) {
+                System.out.print("Y"); // Yellow
+                continue;
+            }
+            System.out.print("B"); // Black
+        }
+        System.out.println();
     }
 
 }
