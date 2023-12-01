@@ -1,9 +1,26 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private static final String WORD = "JUICE";
-    private static final String[] DICTIONARY = {"JUICE", "FORCE", "METAL", "LOCAL", "HAPPY"};
-    public static void main(String[] args) {
+    private static List<String> DICTIONARY = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("words.txt"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                DICTIONARY.add(line.toUpperCase());
+                line = reader.readLine();
+            }
+        } catch (IOException err) {
+            err.printStackTrace();
+            return;
+        }
         System.out.println("Write a guess:");
         Scanner scanner = new Scanner(System.in);
         int attempts = 0;
@@ -13,7 +30,7 @@ public class Main {
                 System.out.println("Success!!!");
                 return;
             }
-            if(!isInDictionary(line)) {
+            if(!DICTIONARY.contains(line)) {
                 System.out.println("Word not in dictionary... Try again:");
             } else {
                 attempts++;
@@ -27,12 +44,4 @@ public class Main {
 
     }
 
-    private static boolean isInDictionary(String word) {
-        for(String current : DICTIONARY) {
-            if(current.equals(word)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
