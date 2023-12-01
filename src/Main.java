@@ -9,18 +9,11 @@ import java.util.Scanner;
 
 public class Main {
     private static final String WORD = "JUICE";
-    private static List<String> DICTIONARY = new ArrayList<>();
+    private static List<String> DICTIONARY;
     public static void main(String[] args) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("words.txt"))) {
-            String line = reader.readLine();
-            while (line != null) {
-                DICTIONARY.add(line.toUpperCase());
-                line = reader.readLine();
-            }
-        } catch (IOException err) {
-            err.printStackTrace();
-            return;
-        }
+        DICTIONARY = Files.readAllLines(new File("words.txt").toPath());
+        DICTIONARY = DICTIONARY.stream().map(String::toUpperCase).toList();
+
         System.out.println("Write a guess:");
         Scanner scanner = new Scanner(System.in);
         int attempts = 0;
